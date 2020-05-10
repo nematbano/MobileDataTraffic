@@ -10,22 +10,23 @@ import java.util.Map;
 public class MobileDataResponseMapper {
     private QuarterCombiner quarterCombiner;
     private DecreaseInVolumeVerifier decreaseInVolumeVerifier;
+    private VolumeCalculator volumeCalculator;
 
-    public MobileDataResponseMapper(QuarterCombiner quarterCombiner, DecreaseInVolumeVerifier decreaseInVolumeVerifier) {
+    public MobileDataResponseMapper(QuarterCombiner quarterCombiner, DecreaseInVolumeVerifier decreaseInVolumeVerifier, VolumeCalculator volumeCalculator) {
         this.quarterCombiner = quarterCombiner;
         this.decreaseInVolumeVerifier = decreaseInVolumeVerifier;
+        this.volumeCalculator = volumeCalculator;
     }
 
     public List<MobileData> mapResponse(List<MobileDataResponse> mobileDataResponses,List<String> listToExclude) {
         List<MobileData> list = new ArrayList<>();
-        Map<String, String> map = quarterCombiner.getDataMap(mobileDataResponses);
-        for (Map.Entry<String, String> stringStringEntry : map.entrySet()) {
         Map<String, ArrayList<String>> quarterMap = quarterCombiner.getQuarterMap(mobileDataResponses,listToExclude);
+        for (Map.Entry<String,  ArrayList<String>> entry : quarterMap.entrySet()) {
             MobileData mobileData = new MobileData();
-            String year = stringStringEntry.getKey();
-            String value = stringStringEntry.getValue();
+            String year = entry.getKey();
+            List<String> value = entry.getValue();
             mobileData.setYear(year);
-            mobileData.setVolume(value);
+            mobileData.setVolume(volumeCalculator.getTotalVolume(value));
             mobileData.setQuarterList(quarterMap.get(year));
             mobileData.setDecreaseInVolume(decreaseInVolumeVerifier.verify(quarterMap, year));
             list.add(mobileData);

@@ -11,6 +11,7 @@ import com.mobiledatatraffic.helper.JsonConverter;
 import com.mobiledatatraffic.helper.MobileDataResponseMapper;
 import com.mobiledatatraffic.helper.NetworkConnectionHelper;
 import com.mobiledatatraffic.helper.QuarterCombiner;
+import com.mobiledatatraffic.helper.VolumeCalculator;
 import com.mobiledatatraffic.list.DataListAdapter;
 import com.mobiledatatraffic.list.DataListViewModel;
 import com.mobiledatatraffic.list.DataListViewModelFactory;
@@ -37,7 +38,8 @@ public class MainActivity extends AppCompatActivity implements DataTrafficContra
         JsonConverter jsonConverter = new JsonConverter();
         QuarterCombiner quarterCombiner = new QuarterCombiner();
         DecreaseInVolumeVerifier decreaseInVolumeVerifier = new DecreaseInVolumeVerifier();
-        MobileDataResponseMapper mobileDataResponseMapper = new MobileDataResponseMapper(quarterCombiner, decreaseInVolumeVerifier);
+        VolumeCalculator volumeCalculator = new VolumeCalculator();
+        MobileDataResponseMapper mobileDataResponseMapper = new MobileDataResponseMapper(quarterCombiner, decreaseInVolumeVerifier, volumeCalculator);
         DataListViewModelFactory dataListViewModelFactory = new DataListViewModelFactory();
         dataTrafficPresenter = new DataTrafficPresenter(networkConnectionHelper,jsonConverter,mobileDataResponseMapper,dataListViewModelFactory);
     }
