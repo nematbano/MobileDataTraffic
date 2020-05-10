@@ -14,7 +14,9 @@ public class JsonConverter {
         if (jsonObject != null) {
             try {
                 jsonObject = jsonObject.getJSONObject("result");
-                return convert(jsonObject.getJSONArray("records"));
+                if(jsonObject!= null) {
+                    return convert(jsonObject.getJSONArray("records"));
+                }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -23,15 +25,20 @@ public class JsonConverter {
     }
 
     private List<MobileDataResponse> convert(JSONArray jArr) {
-        List<MobileDataResponse> list = new ArrayList<>();
+        List<MobileDataResponse> list = null;
         if (jArr != null) {
+            list = new ArrayList<>();
             try {
                 for (int i = 0, l = jArr.length(); i < l; i++) {
                     MobileDataResponse mobileData = new MobileDataResponse();
                     JSONObject jsonObject = jArr.optJSONObject(i);
-                    mobileData.setVolume(jsonObject.get("volume_of_mobile_data").toString());
-                    mobileData.setQuarter(jsonObject.get("quarter").toString());
-                    list.add(mobileData);
+                    Object volumeOfMobileData = jsonObject.get("volume_of_mobile_data");
+                    Object quarter = jsonObject.get("quarter");
+                    if((volumeOfMobileData!=null) && (quarter!=null)) {
+                        mobileData.setVolume(volumeOfMobileData.toString());
+                        mobileData.setQuarter(quarter.toString());
+                        list.add(mobileData);
+                    }
                 }
             } catch (JSONException e) {
             }
