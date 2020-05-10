@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.mobiledatatraffic.helper.DecreaseInVolumeFactory;
 import com.mobiledatatraffic.helper.JsonConverter;
@@ -15,13 +16,14 @@ import com.mobiledatatraffic.helper.NetworkConnectionHelper;
 import com.mobiledatatraffic.helper.QuarterCombiner;
 import com.mobiledatatraffic.helper.VolumeCalculator;
 import com.mobiledatatraffic.list.DataListAdapter;
+import com.mobiledatatraffic.list.DataListItemViewHolder;
 import com.mobiledatatraffic.list.DataListViewModel;
 import com.mobiledatatraffic.list.DataListViewModelFactory;
 
 import java.util.Arrays;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements DataTrafficContract.View {
+public class MainActivity extends AppCompatActivity implements DataTrafficContract.View, DataListItemViewHolder.OnImageClickedCallback {
     RecyclerView dataListRecyclerView;
     DataTrafficContract.Presenter dataTrafficPresenter;
     NetworkConnectionHelper networkConnectionHelper;
@@ -74,6 +76,7 @@ public class MainActivity extends AppCompatActivity implements DataTrafficContra
     @Override
     public void loadData(List<DataListViewModel> mobileDataList) {
         dataListAdapter.setDataList(mobileDataList);
+        dataListAdapter.setOnImageClickedCallback(this);
         dataListRecyclerView.setAdapter(dataListAdapter);
         dataListAdapter.notifyDataSetChanged();
     }
@@ -98,6 +101,14 @@ public class MainActivity extends AppCompatActivity implements DataTrafficContra
         }
 
         alertDialog.show();
+
+    }
+
+    @Override
+    public void onImageClicked(String from, String to, String quarter) {
+        String q = String.format(getString(R.string.quarter),quarter);
+        Toast.makeText(this, String.format(getString(R.string.message),from,to,q),
+                Toast.LENGTH_LONG).show();
 
     }
 }

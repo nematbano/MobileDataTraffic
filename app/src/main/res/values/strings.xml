@@ -2,4 +2,6 @@
     <string name="app_name">MobileDataTraffic</string>
     <string name="header">Data Volume between Year 2008 and 2018</string>
     <string name="error_message">Something Went Wrong.</string>
+    <string name="message">Data is decreased from %1$s to %2$s in %3$s.</string>
+    <string name="quarter">Q%1$s</string>
 </resources>

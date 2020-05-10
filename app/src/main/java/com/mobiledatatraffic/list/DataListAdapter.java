@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.mobiledatatraffic.MainActivity;
 import com.mobiledatatraffic.R;
 
 import java.util.List;
@@ -14,6 +15,7 @@ import static com.mobiledatatraffic.list.DataListViewType.*;
 
 public class DataListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<DataListViewModel> viewModels;
+    private DataListItemViewHolder.OnImageClickedCallback onImageClickedCallback;
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -42,6 +44,7 @@ public class DataListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         switch (viewModel.getType()) {
             case LIST_ITEM:
                 ((DataListItemViewHolder) holder).bindView((DataListItemViewModel) viewModel);
+                ((DataListItemViewHolder) holder).setOnImageClickedCallback(onImageClickedCallback);
                 break;
             case LIST_HEADER:
                 break;
@@ -63,6 +66,11 @@ public class DataListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     public void setDataList(List<DataListViewModel> viewModels) {
         this.viewModels = viewModels;
+    }
+
+    public void setOnImageClickedCallback(DataListItemViewHolder.OnImageClickedCallback onImageClickedCallback){
+
+        this.onImageClickedCallback = onImageClickedCallback;
     }
 
 }

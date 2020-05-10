@@ -10,7 +10,7 @@ import com.mobiledatatraffic.R;
 
 import static android.view.View.GONE;
 
-class DataListItemViewHolder extends RecyclerView.ViewHolder {
+public class DataListItemViewHolder extends RecyclerView.ViewHolder {
 
     TextView yearText;
     TextView volumeText;
@@ -25,14 +25,19 @@ class DataListItemViewHolder extends RecyclerView.ViewHolder {
         decreaseInVolumeImage = itemView.findViewById(R.id.low_image);
     }
 
-    public void bindView(DataListItemViewModel viewModel) {
+    public void bindView(final DataListItemViewModel viewModel) {
         yearText.setText(viewModel.getYear());
         volumeText.setText(viewModel.getVolume());
         if(viewModel.getFrom() !=null)
         {
             decreaseInVolumeImage.setVisibility(View.VISIBLE);
         }
-//    itemView.setOnClickListener(v -> onImageClickedCallback.onImageClicked(viewModel));
+        itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onImageClickedCallback.onImageClicked(viewModel.getFrom(), viewModel.getTo(), viewModel.getQuarter());
+            }
+        });
     }
 
     public void setOnImageClickedCallback(OnImageClickedCallback onImageClickedCallback) {
@@ -41,7 +46,7 @@ class DataListItemViewHolder extends RecyclerView.ViewHolder {
 
     public interface OnImageClickedCallback {
 
-        void onImageClicked(DataListItemViewModel viewModel);
+        void onImageClicked(String from, String to, String quarter);
     }
 }
 
