@@ -6,7 +6,6 @@ public class MobileData {
     String volume;
     String year;
     List<String> quarterList;
-    boolean isDecreaseInVolume;
 
     DecreaseInVolume decreaseInVolume;
 
@@ -32,14 +31,6 @@ public class MobileData {
 
     public void setQuarterList(List<String> quarterList) {
         this.quarterList = quarterList;
-    }
-
-    public boolean isDecreaseInVolume() {
-        return isDecreaseInVolume;
-    }
-
-    public void setDecreaseInVolume(boolean decreaseInVolume) {
-        isDecreaseInVolume = decreaseInVolume;
     }
 
     public DecreaseInVolume getDecreaseInVolume() {

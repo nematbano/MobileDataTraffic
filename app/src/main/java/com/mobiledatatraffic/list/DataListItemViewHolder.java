@@ -28,7 +28,10 @@ class DataListItemViewHolder extends RecyclerView.ViewHolder {
     public void bindView(DataListItemViewModel viewModel) {
         yearText.setText(viewModel.getYear());
         volumeText.setText(viewModel.getVolume());
-        decreaseInVolumeImage.setVisibility(viewModel.getDecreaseInVolume()?View.VISIBLE:GONE);
+        if(viewModel.getFrom() !=null)
+        {
+            decreaseInVolumeImage.setVisibility(View.VISIBLE);
+        }
 //    itemView.setOnClickListener(v -> onImageClickedCallback.onImageClicked(viewModel));
     }
 

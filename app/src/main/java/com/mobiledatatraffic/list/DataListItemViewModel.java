@@ -12,7 +12,6 @@ class DataListItemViewModel extends DataListViewModel implements Parcelable {
 
     private final String year;
     private final String volume;
-    private final boolean isDecreaseInVolume;
     private String from;
     private String to;
     private int quarter;
@@ -20,7 +19,6 @@ class DataListItemViewModel extends DataListViewModel implements Parcelable {
     public DataListItemViewModel(MobileData mobileData) {
         this.year = mobileData.getYear();
         this.volume = mobileData.getVolume();
-        this.isDecreaseInVolume = mobileData.isDecreaseInVolume();
         DecreaseInVolume decreaseInVolume = mobileData.getDecreaseInVolume();
         if (decreaseInVolume != null) {
             this.from = mobileData.getDecreaseInVolume().getFrom();
@@ -32,7 +30,6 @@ class DataListItemViewModel extends DataListViewModel implements Parcelable {
     protected DataListItemViewModel(Parcel in) {
         year = in.readString();
         volume = in.readString();
-        isDecreaseInVolume = in.readInt()==1;
         from = in.readString();
         to = in.readString();
         quarter = in.readInt();
@@ -42,7 +39,6 @@ class DataListItemViewModel extends DataListViewModel implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(year);
         dest.writeString(volume);
-        dest.writeInt(isDecreaseInVolume ? 1 : 0);
         dest.writeString(from);
         dest.writeString(to);
         dest.writeInt(quarter);
@@ -76,9 +72,7 @@ class DataListItemViewModel extends DataListViewModel implements Parcelable {
     public String getVolume() {
         return volume;
     }
-    public boolean getDecreaseInVolume(){
-        return isDecreaseInVolume;
-    }
+
     public String getFrom(){
         return from;
     }
