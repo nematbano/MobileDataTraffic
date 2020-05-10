@@ -8,6 +8,8 @@ public class MobileData {
     List<String> quarterList;
     boolean isDecreaseInVolume;
 
+    DecreaseInVolume decreaseInVolume;
+
     public String getVolume() {
         return volume;
     }
@@ -38,5 +40,13 @@ public class MobileData {
 
     public void setDecreaseInVolume(boolean decreaseInVolume) {
         isDecreaseInVolume = decreaseInVolume;
+    }
+
+    public DecreaseInVolume getDecreaseInVolume() {
+        return decreaseInVolume;
+    }
+
+    public void setDecreaseInVolume(DecreaseInVolume decreaseInVolume) {
+        this.decreaseInVolume = decreaseInVolume;
     }
 }
