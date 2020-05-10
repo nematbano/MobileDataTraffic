@@ -9,12 +9,12 @@ import java.util.Map;
 
 public class MobileDataResponseMapper {
     private QuarterCombiner quarterCombiner;
-    private DecreaseInVolumeVerifier decreaseInVolumeVerifier;
+    private DecreaseInVolumeFactory decreaseInVolumeFactory;
     private VolumeCalculator volumeCalculator;
 
-    public MobileDataResponseMapper(QuarterCombiner quarterCombiner, DecreaseInVolumeVerifier decreaseInVolumeVerifier, VolumeCalculator volumeCalculator) {
+    public MobileDataResponseMapper(QuarterCombiner quarterCombiner, DecreaseInVolumeFactory decreaseInVolumeFactory, VolumeCalculator volumeCalculator) {
         this.quarterCombiner = quarterCombiner;
-        this.decreaseInVolumeVerifier = decreaseInVolumeVerifier;
+        this.decreaseInVolumeFactory = decreaseInVolumeFactory;
         this.volumeCalculator = volumeCalculator;
     }
 
@@ -28,7 +28,7 @@ public class MobileDataResponseMapper {
             mobileData.setYear(year);
             mobileData.setVolume(volumeCalculator.getTotalVolume(value));
             mobileData.setQuarterList(quarterMap.get(year));
-            mobileData.setDecreaseInVolume(decreaseInVolumeVerifier.verify(quarterMap, year));
+            mobileData.setDecreaseInVolume(decreaseInVolumeFactory.get(quarterMap, year));
             list.add(mobileData);
         }
         return list;

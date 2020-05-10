@@ -8,7 +8,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
-import com.mobiledatatraffic.helper.DecreaseInVolumeVerifier;
+import com.mobiledatatraffic.helper.DecreaseInVolumeFactory;
 import com.mobiledatatraffic.helper.JsonConverter;
 import com.mobiledatatraffic.helper.MobileDataResponseMapper;
 import com.mobiledatatraffic.helper.NetworkConnectionHelper;
@@ -40,9 +40,9 @@ public class MainActivity extends AppCompatActivity implements DataTrafficContra
 
         JsonConverter jsonConverter = new JsonConverter();
         QuarterCombiner quarterCombiner = new QuarterCombiner();
-        DecreaseInVolumeVerifier decreaseInVolumeVerifier = new DecreaseInVolumeVerifier();
+        DecreaseInVolumeFactory decreaseInVolumeFactory = new DecreaseInVolumeFactory();
         VolumeCalculator volumeCalculator = new VolumeCalculator();
-        MobileDataResponseMapper mobileDataResponseMapper = new MobileDataResponseMapper(quarterCombiner, decreaseInVolumeVerifier, volumeCalculator);
+        MobileDataResponseMapper mobileDataResponseMapper = new MobileDataResponseMapper(quarterCombiner, decreaseInVolumeFactory, volumeCalculator);
         DataListViewModelFactory dataListViewModelFactory = new DataListViewModelFactory();
         dataTrafficPresenter = new DataTrafficPresenter(networkConnectionHelper,jsonConverter,mobileDataResponseMapper,dataListViewModelFactory);
     }
