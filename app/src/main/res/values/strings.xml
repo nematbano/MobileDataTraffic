@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">MobileDataTraffic</string>
     <string name="header">Data Volume between Year 2008 and 2018</string>
+    <string name="error_message">Something Went Wrong.</string>
 </resources>

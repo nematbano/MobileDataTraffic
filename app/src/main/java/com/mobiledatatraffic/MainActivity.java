@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import com.mobiledatatraffic.helper.DecreaseInVolumeVerifier;
@@ -24,6 +26,7 @@ public class MainActivity extends AppCompatActivity implements DataTrafficContra
     DataTrafficContract.Presenter dataTrafficPresenter;
     NetworkConnectionHelper networkConnectionHelper;
     DataListAdapter dataListAdapter;
+    AlertDialog alertDialog=null;
     String[] listToExclude=null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,8 +52,23 @@ public class MainActivity extends AppCompatActivity implements DataTrafficContra
         super.onResume();
 
         dataTrafficPresenter.setView(this);
-
         dataTrafficPresenter.fetchData(Arrays.asList(listToExclude));
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(networkConnectionHelper!=null) {
+            networkConnectionHelper.cancel(true);
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (alertDialog != null && alertDialog.isShowing()) {
+            alertDialog.dismiss();
+        }
     }
 
     @Override
@@ -62,6 +80,24 @@ public class MainActivity extends AppCompatActivity implements DataTrafficContra
 
     @Override
     public void showError() {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setMessage(getString(R.string.error_message));
+        alertDialogBuilder.setPositiveButton("Okay",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        if (alertDialog != null && alertDialog.isShowing()) {
+                            alertDialog.dismiss();
+                        }
+                    }
+                });
+
+        alertDialog = alertDialogBuilder.create();
+        if (alertDialog.isShowing()) {
+            alertDialog.dismiss();
+        }
+
+        alertDialog.show();
 
     }
 }
