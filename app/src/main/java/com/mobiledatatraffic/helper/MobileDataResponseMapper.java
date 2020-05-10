@@ -18,18 +18,20 @@ public class MobileDataResponseMapper {
         this.volumeCalculator = volumeCalculator;
     }
 
-    public List<MobileData> mapResponse(List<MobileDataResponse> mobileDataResponses,List<String> listToExclude) {
+    public List<MobileData> mapResponse(List<MobileDataResponse> mobileDataResponses, List<String> listToExclude) {
         List<MobileData> list = new ArrayList<>();
-        Map<String, ArrayList<String>> quarterMap = quarterCombiner.getQuarterMap(mobileDataResponses,listToExclude);
-        for (Map.Entry<String,  ArrayList<String>> entry : quarterMap.entrySet()) {
-            MobileData mobileData = new MobileData();
-            String year = entry.getKey();
-            List<String> value = entry.getValue();
-            mobileData.setYear(year);
-            mobileData.setVolume(volumeCalculator.getTotalVolume(value));
-            mobileData.setQuarterList(quarterMap.get(year));
-            mobileData.setDecreaseInVolume(decreaseInVolumeFactory.get(quarterMap, year));
-            list.add(mobileData);
+        Map<String, ArrayList<String>> quarterMap = quarterCombiner.getQuarterMap(mobileDataResponses, listToExclude);
+        if (quarterMap != null) {
+            for (Map.Entry<String, ArrayList<String>> entry : quarterMap.entrySet()) {
+                MobileData mobileData = new MobileData();
+                String year = entry.getKey();
+                List<String> value = entry.getValue();
+                mobileData.setYear(year);
+                mobileData.setVolume(volumeCalculator.getTotalVolume(value));
+                mobileData.setQuarterList(quarterMap.get(year));
+                mobileData.setDecreaseInVolume(decreaseInVolumeFactory.get(quarterMap, year));
+                list.add(mobileData);
+            }
         }
         return list;
     }
