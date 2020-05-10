@@ -30,11 +30,6 @@ public class DataListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                         .inflate(R.layout.view_data_list_item, parent, false);
                 return new DataListItemViewHolder(view);
 
-            case LIST_SEPARATOR:
-                view = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.view_data_list_separator, parent, false);
-                return new DataListStaticViewHolder(view);
-
             default:
                 throw new IllegalStateException(
                         "Unknown type " + viewType + " for ListAdapter");
@@ -49,7 +44,6 @@ public class DataListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 ((DataListItemViewHolder) holder).bindView((DataListItemViewModel) viewModel);
                 break;
             case LIST_HEADER:
-            case LIST_SEPARATOR:
                 break;
             default:
                 throw new IllegalStateException(
