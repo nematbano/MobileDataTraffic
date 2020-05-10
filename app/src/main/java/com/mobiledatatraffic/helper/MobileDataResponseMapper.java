@@ -16,11 +16,11 @@ public class MobileDataResponseMapper {
         this.decreaseInVolumeVerifier = decreaseInVolumeVerifier;
     }
 
-    public List<MobileData> mapResponse(List<MobileDataResponse> mobileDataResponses) {
+    public List<MobileData> mapResponse(List<MobileDataResponse> mobileDataResponses,List<String> listToExclude) {
         List<MobileData> list = new ArrayList<>();
         Map<String, String> map = quarterCombiner.getDataMap(mobileDataResponses);
-        Map<String, ArrayList<String>> quarterMap = quarterCombiner.getQuarterMap(mobileDataResponses);
         for (Map.Entry<String, String> stringStringEntry : map.entrySet()) {
+        Map<String, ArrayList<String>> quarterMap = quarterCombiner.getQuarterMap(mobileDataResponses,listToExclude);
             MobileData mobileData = new MobileData();
             String year = stringStringEntry.getKey();
             String value = stringStringEntry.getValue();

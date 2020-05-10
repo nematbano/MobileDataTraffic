@@ -34,8 +34,7 @@ public class QuarterCombiner {
         return dataMap;
     }
 
-    public Map<String, ArrayList<String>> getQuarterMap(List<MobileDataResponse> mobileDataResponses) {
-        List<String> listToExclude = Arrays.asList("2004", "2005", "2006", "2007", "2019");
+    public Map<String, ArrayList<String>> getQuarterMap(List<MobileDataResponse> mobileDataResponses, List<String> listToExclude) {
         for (MobileDataResponse mobileDataResponse : mobileDataResponses) {
             String year = mobileDataResponse.getQuarter().substring(0, 4);
             if (listToExclude.contains(year)) {

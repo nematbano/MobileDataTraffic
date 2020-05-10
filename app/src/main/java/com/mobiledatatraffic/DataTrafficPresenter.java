@@ -2,12 +2,12 @@ package com.mobiledatatraffic;
 
 import android.os.AsyncTask;
 
-import com.mobiledatatraffic.helper.DecreaseInVolumeVerifier;
 import com.mobiledatatraffic.helper.JsonConverter;
 import com.mobiledatatraffic.helper.MobileDataResponseMapper;
 import com.mobiledatatraffic.helper.NetworkConnectionHelper;
-import com.mobiledatatraffic.helper.QuarterCombiner;
 import com.mobiledatatraffic.list.DataListViewModelFactory;
+
+import java.util.List;
 
 public class DataTrafficPresenter implements DataTrafficContract.Presenter {
     private DataTrafficContract.View view;
@@ -33,17 +33,17 @@ public class DataTrafficPresenter implements DataTrafficContract.Presenter {
     }
 
     @Override
-    public void fetchData() {
+    public void fetchData(List<String> listToExclude) {
         try {
             if ((networkConnectionHelper != null)) {
                 if (networkConnectionHelper.getStatus() != AsyncTask.Status.RUNNING) {
                     networkConnectionHelper.cancel(true);
-                    networkConnectionHelper = new NetworkConnectionHelper(view,jsonConverter, mobileDataResponseMapper,dataListViewModelFactory);
+                    networkConnectionHelper = new NetworkConnectionHelper(view,jsonConverter, mobileDataResponseMapper,dataListViewModelFactory,listToExclude);
                     networkConnectionHelper.execute();
                 }
             }
             else {
-                networkConnectionHelper = new NetworkConnectionHelper(view,jsonConverter, mobileDataResponseMapper,dataListViewModelFactory);
+                networkConnectionHelper = new NetworkConnectionHelper(view,jsonConverter, mobileDataResponseMapper,dataListViewModelFactory,listToExclude);
                 networkConnectionHelper.execute();
             }
         } catch (Exception e) {

@@ -12,6 +12,6 @@ public class DataTrafficContract {
     }
     public interface Presenter{
         void setView(View view);
-        void fetchData();
+        void fetchData(List<String> listToExclude);
     }
 }

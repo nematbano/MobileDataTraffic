@@ -22,17 +22,20 @@ public class NetworkConnectionHelper extends AsyncTask<String, Void, List<DataLi
     private JsonConverter jsonConverter;
     private MobileDataResponseMapper mobileDataResponseMapper;
     private DataListViewModelFactory dataListViewModelFactory;
+    private List<String> listToExclude;
     private boolean isFailed = false;
     private static final String URL = "https://data.gov.sg/api/action/datastore_search?resource_id=a807b7ab-6cad-4aa6-87d0-e283a7353a0f&limit=59";
 
     public NetworkConnectionHelper(DataTrafficContract.View view,
                                    JsonConverter jsonConverter,
                                    MobileDataResponseMapper mobileDataResponseMapper,
-                                   DataListViewModelFactory dataListViewModelFactory) {
+                                   DataListViewModelFactory dataListViewModelFactory,
+                                   List<String> listToExclude) {
         this.view = view;
         this.jsonConverter = jsonConverter;
         this.mobileDataResponseMapper = mobileDataResponseMapper;
         this.dataListViewModelFactory = dataListViewModelFactory;
+        this.listToExclude = listToExclude;
     }
 
     public List<DataListViewModel> doInBackground(String... urls) {
@@ -55,7 +58,8 @@ public class NetworkConnectionHelper extends AsyncTask<String, Void, List<DataLi
 
                 JSONObject result = new JSONObject(response.toString());
                 List<MobileDataResponse> records = jsonConverter.convert(result);
-                List<MobileData> mobileDataList = mobileDataResponseMapper.mapResponse(records);
+
+                List<MobileData> mobileDataList = mobileDataResponseMapper.mapResponse(records,listToExclude);
                 return dataListViewModelFactory.generateViewModels(mobileDataList);
             } else {
                 isFailed = true;

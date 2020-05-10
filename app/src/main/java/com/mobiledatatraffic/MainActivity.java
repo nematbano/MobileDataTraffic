@@ -15,6 +15,7 @@ import com.mobiledatatraffic.list.DataListAdapter;
 import com.mobiledatatraffic.list.DataListViewModel;
 import com.mobiledatatraffic.list.DataListViewModelFactory;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements DataTrafficContract.View {
@@ -22,6 +23,7 @@ public class MainActivity extends AppCompatActivity implements DataTrafficContra
     DataTrafficContract.Presenter dataTrafficPresenter;
     NetworkConnectionHelper networkConnectionHelper;
     DataListAdapter dataListAdapter;
+    String[] listToExclude=null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +31,8 @@ public class MainActivity extends AppCompatActivity implements DataTrafficContra
         dataListRecyclerView = findViewById(R.id.data_list);
         dataListRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         dataListAdapter = new DataListAdapter();
+
+        listToExclude = getResources().getStringArray(R.array.list_to_exclude);
 
         JsonConverter jsonConverter = new JsonConverter();
         QuarterCombiner quarterCombiner = new QuarterCombiner();
@@ -43,7 +47,8 @@ public class MainActivity extends AppCompatActivity implements DataTrafficContra
         super.onResume();
 
         dataTrafficPresenter.setView(this);
-        dataTrafficPresenter.fetchData();
+
+        dataTrafficPresenter.fetchData(Arrays.asList(listToExclude));
     }
 
     @Override
