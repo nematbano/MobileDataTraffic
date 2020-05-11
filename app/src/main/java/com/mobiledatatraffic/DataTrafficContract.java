@@ -1,5 +1,6 @@
 package com.mobiledatatraffic;
 
+import com.mobiledatatraffic.helper.NetworkConnectionHelper;
 import com.mobiledatatraffic.list.DataListViewModel;
 
 import java.util.List;
@@ -11,7 +12,6 @@ public class DataTrafficContract {
         void showError();
     }
     public interface Presenter{
-        void setView(View view);
-        void fetchData(List<String> listToExclude);
+        void fetchData(NetworkConnectionHelper networkConnectionHelper);
     }
 }

@@ -13,6 +13,7 @@ import com.mobiledatatraffic.helper.DecreaseInVolumeFactory;
 import com.mobiledatatraffic.helper.JsonConverter;
 import com.mobiledatatraffic.helper.MobileDataResponseMapper;
 import com.mobiledatatraffic.helper.NetworkConnectionHelper;
+import com.mobiledatatraffic.helper.NetworkConnectionHelperFactory;
 import com.mobiledatatraffic.helper.QuarterCombiner;
 import com.mobiledatatraffic.helper.VolumeCalculator;
 import com.mobiledatatraffic.list.DataListAdapter;
@@ -28,8 +29,9 @@ public class MainActivity extends AppCompatActivity implements DataTrafficContra
     DataTrafficContract.Presenter dataTrafficPresenter;
     NetworkConnectionHelper networkConnectionHelper;
     DataListAdapter dataListAdapter;
-    AlertDialog alertDialog=null;
-    String[] listToExclude=null;
+    AlertDialog alertDialog = null;
+    String[] listToExclude = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,21 +48,21 @@ public class MainActivity extends AppCompatActivity implements DataTrafficContra
         VolumeCalculator volumeCalculator = new VolumeCalculator();
         MobileDataResponseMapper mobileDataResponseMapper = new MobileDataResponseMapper(quarterCombiner, decreaseInVolumeFactory, volumeCalculator);
         DataListViewModelFactory dataListViewModelFactory = new DataListViewModelFactory();
-        dataTrafficPresenter = new DataTrafficPresenter(networkConnectionHelper,jsonConverter,mobileDataResponseMapper,dataListViewModelFactory);
+        NetworkConnectionHelperFactory networkConnectionHelperFactory = new NetworkConnectionHelperFactory(this, jsonConverter, mobileDataResponseMapper, dataListViewModelFactory, Arrays.asList(listToExclude));
+        dataTrafficPresenter = new DataTrafficPresenter(networkConnectionHelperFactory);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
 
-        dataTrafficPresenter.setView(this);
-        dataTrafficPresenter.fetchData(Arrays.asList(listToExclude));
+        dataTrafficPresenter.fetchData(networkConnectionHelper);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(networkConnectionHelper!=null) {
+        if (networkConnectionHelper != null) {
             networkConnectionHelper.cancel(true);
         }
     }
@@ -106,9 +108,11 @@ public class MainActivity extends AppCompatActivity implements DataTrafficContra
 
     @Override
     public void onImageClicked(String from, String to, String quarter) {
-        String q = String.format(getString(R.string.quarter),quarter);
-        Toast.makeText(this, String.format(getString(R.string.message),from,to,q),
-                Toast.LENGTH_LONG).show();
+        if(from!=null) {
+            String q = String.format(getString(R.string.quarter), quarter);
+            Toast.makeText(this, String.format(getString(R.string.message), from, to, q),
+                    Toast.LENGTH_LONG).show();
+        }
 
     }
 }

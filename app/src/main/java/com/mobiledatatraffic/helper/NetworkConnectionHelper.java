@@ -18,11 +18,11 @@ import java.util.List;
 
 public class NetworkConnectionHelper extends AsyncTask<String, Void, List<DataListViewModel>> {
 
-    private final DataTrafficContract.View view;
-    private JsonConverter jsonConverter;
-    private MobileDataResponseMapper mobileDataResponseMapper;
-    private DataListViewModelFactory dataListViewModelFactory;
-    private List<String> listToExclude;
+    public final DataTrafficContract.View view;
+    public JsonConverter jsonConverter;
+    public MobileDataResponseMapper mobileDataResponseMapper;
+    public DataListViewModelFactory dataListViewModelFactory;
+    public List<String> listToExclude;
     private boolean isFailed = false;
     private static final String URL = "https://data.gov.sg/api/action/datastore_search?resource_id=a807b7ab-6cad-4aa6-87d0-e283a7353a0f&limit=59";
 
@@ -77,7 +77,6 @@ public class NetworkConnectionHelper extends AsyncTask<String, Void, List<DataLi
         if (isFailed) {
             view.showError();
         } else {
-
             view.loadData(mobileDataList);
         }
     }
