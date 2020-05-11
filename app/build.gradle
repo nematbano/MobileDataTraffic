@@ -5,6 +5,11 @@ android {
     buildToolsVersion "29.0.3"
     useLibrary 'android.test.runner'
 
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
+
     defaultConfig {
         applicationId "com.mobiledatatraffic"
         minSdkVersion 24
@@ -47,6 +52,5 @@ dependencies {
 
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test:rules:1.2.0'
-    androidTestImplementation 'com.squareup.okhttp3:mockwebserver:3.14.4'
 
 }
