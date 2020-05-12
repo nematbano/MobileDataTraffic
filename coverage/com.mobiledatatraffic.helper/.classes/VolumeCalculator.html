@@ -1,0 +1,110 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: VolumeCalculator</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.mobiledatatraffic.helper</a> ]
+</div>
+
+<h1>Coverage Summary for Class: VolumeCalculator (com.mobiledatatraffic.helper)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">VolumeCalculator</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/ 2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (7/ 7)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">VolumeCalculator$$EnhancerByMockitoWithCGLIB$$b42fea4f</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/ 2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (7/ 7)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.mobiledatatraffic.helper;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import java.util.List;
+<i>4</i>&nbsp;
+<b class="fc"><i>5</i>&nbsp;public class VolumeCalculator {</b>
+<i>6</i>&nbsp;    public String getTotalVolume(List&lt;String&gt; list) {
+<b class="fc"><i>7</i>&nbsp;        double sum = 0;</b>
+<b class="fc"><i>8</i>&nbsp;        if (list != null) {</b>
+<i>9</i>&nbsp;            try {
+<b class="fc"><i>10</i>&nbsp;                for (int i = 0; i &lt; list.size(); i++) {</b>
+<b class="fc"><i>11</i>&nbsp;                    sum += Double.parseDouble(list.get(i));</b>
+<i>12</i>&nbsp;                }
+<b class="fc"><i>13</i>&nbsp;            } catch (NumberFormatException exception) { }</b>
+<i>14</i>&nbsp;        }
+<b class="fc"><i>15</i>&nbsp;        return String.valueOf(sum);</b>
+<i>16</i>&nbsp;    }
+<i>17</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-05-12 08:29</div>
+</div>
+</body>
+</html>

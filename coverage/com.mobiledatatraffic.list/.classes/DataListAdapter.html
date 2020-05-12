@@ -1,0 +1,159 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: DataListAdapter</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.mobiledatatraffic.list</a> ]
+</div>
+
+<h1>Coverage Summary for Class: DataListAdapter (com.mobiledatatraffic.list)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">DataListAdapter</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 21)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.mobiledatatraffic.list;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import android.view.LayoutInflater;
+<i>4</i>&nbsp;import android.view.View;
+<i>5</i>&nbsp;import android.view.ViewGroup;
+<i>6</i>&nbsp;
+<i>7</i>&nbsp;import androidx.recyclerview.widget.RecyclerView;
+<i>8</i>&nbsp;
+<i>9</i>&nbsp;import com.mobiledatatraffic.MainActivity;
+<i>10</i>&nbsp;import com.mobiledatatraffic.R;
+<i>11</i>&nbsp;
+<i>12</i>&nbsp;import java.util.List;
+<i>13</i>&nbsp;
+<i>14</i>&nbsp;import static com.mobiledatatraffic.list.DataListViewType.*;
+<i>15</i>&nbsp;
+<b class="nc"><i>16</i>&nbsp;public class DataListAdapter extends RecyclerView.Adapter&lt;RecyclerView.ViewHolder&gt; {</b>
+<i>17</i>&nbsp;    private List&lt;DataListViewModel&gt; viewModels;
+<i>18</i>&nbsp;    private DataListItemViewHolder.OnImageClickedCallback onImageClickedCallback;
+<i>19</i>&nbsp;
+<i>20</i>&nbsp;    @Override
+<i>21</i>&nbsp;    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+<i>22</i>&nbsp;
+<i>23</i>&nbsp;        View view;
+<b class="nc"><i>24</i>&nbsp;        switch (viewType) {</b>
+<i>25</i>&nbsp;            case LIST_HEADER:
+<b class="nc"><i>26</i>&nbsp;                view = LayoutInflater.from(parent.getContext())</b>
+<b class="nc"><i>27</i>&nbsp;                        .inflate(R.layout.view_data_list_header, parent, false);</b>
+<b class="nc"><i>28</i>&nbsp;                return new DataListStaticViewHolder(view);</b>
+<i>29</i>&nbsp;
+<i>30</i>&nbsp;            case LIST_ITEM:
+<b class="nc"><i>31</i>&nbsp;                view = LayoutInflater.from(parent.getContext())</b>
+<b class="nc"><i>32</i>&nbsp;                        .inflate(R.layout.view_data_list_item, parent, false);</b>
+<b class="nc"><i>33</i>&nbsp;                return new DataListItemViewHolder(view);</b>
+<i>34</i>&nbsp;
+<i>35</i>&nbsp;            default:
+<b class="nc"><i>36</i>&nbsp;                throw new IllegalStateException(</b>
+<i>37</i>&nbsp;                        &quot;Unknown type &quot; + viewType + &quot; for ListAdapter&quot;);
+<i>38</i>&nbsp;        }
+<i>39</i>&nbsp;    }
+<i>40</i>&nbsp;
+<i>41</i>&nbsp;    @Override
+<i>42</i>&nbsp;    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+<b class="nc"><i>43</i>&nbsp;        DataListViewModel viewModel = viewModels.get(position);</b>
+<b class="nc"><i>44</i>&nbsp;        switch (viewModel.getType()) {</b>
+<i>45</i>&nbsp;            case LIST_ITEM:
+<b class="nc"><i>46</i>&nbsp;                ((DataListItemViewHolder) holder).bindView((DataListItemViewModel) viewModel);</b>
+<b class="nc"><i>47</i>&nbsp;                ((DataListItemViewHolder) holder).setOnImageClickedCallback(onImageClickedCallback);</b>
+<b class="nc"><i>48</i>&nbsp;                break;</b>
+<i>49</i>&nbsp;            case LIST_HEADER:
+<b class="nc"><i>50</i>&nbsp;                break;</b>
+<i>51</i>&nbsp;            default:
+<b class="nc"><i>52</i>&nbsp;                throw new IllegalStateException(</b>
+<b class="nc"><i>53</i>&nbsp;                        &quot;Unknown type &quot; + viewModel.getType() + &quot; for ListAdapter&quot;);</b>
+<i>54</i>&nbsp;        }
+<i>55</i>&nbsp;    }
+<i>56</i>&nbsp;
+<i>57</i>&nbsp;    @Override
+<i>58</i>&nbsp;    public int getItemViewType(int position) {
+<b class="nc"><i>59</i>&nbsp;        return viewModels.get(position).getType();</b>
+<i>60</i>&nbsp;    }
+<i>61</i>&nbsp;
+<i>62</i>&nbsp;    @Override
+<i>63</i>&nbsp;    public int getItemCount() {
+<b class="nc"><i>64</i>&nbsp;        return viewModels.size();</b>
+<i>65</i>&nbsp;    }
+<i>66</i>&nbsp;
+<i>67</i>&nbsp;    public void setDataList(List&lt;DataListViewModel&gt; viewModels) {
+<b class="nc"><i>68</i>&nbsp;        this.viewModels = viewModels;</b>
+<i>69</i>&nbsp;    }
+<i>70</i>&nbsp;
+<i>71</i>&nbsp;    public void setOnImageClickedCallback(DataListItemViewHolder.OnImageClickedCallback onImageClickedCallback){
+<i>72</i>&nbsp;
+<b class="nc"><i>73</i>&nbsp;        this.onImageClickedCallback = onImageClickedCallback;</b>
+<i>74</i>&nbsp;    }
+<i>75</i>&nbsp;
+<i>76</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-05-12 08:29</div>
+</div>
+</body>
+</html>
